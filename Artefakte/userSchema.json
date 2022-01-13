@@ -1,0 +1,63 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "User schema",
+    "description": "The User schema defines the Users data.",
+    "default": {},
+    "examples": [            
+        "vorname": "vorname",
+        "nachname":"nachname",
+        "diets": ["vegan", "ketogenic"],
+        "country": "Germany"
+    ],
+
+    "required": [
+        "vorname",
+        "nachname",
+        "diet"
+    ],
+
+    "properties": {
+        "vorname": {
+            "$id": "#/properties/vorname",
+            "type": "string",
+            "title": "First name User",
+            "description": "String of First Name",
+            "default": 0,
+            "examples": [
+                "Max"
+            ]
+        },
+        "nachname": {
+            "$id": "#/properties/vorname",
+            "type": "string",
+            "title": "last name User",
+            "description": "String of Last Name",
+            "default": 0,
+            "examples": [
+                "Mustermann"
+            ]
+        },
+        "diets": {
+            "$id": "#/properties/diets",
+            "type": "array",
+            "title": "The diets schema",
+            "description": "A List containing all diets that the User requires",
+            "default": [],
+            "examples": [
+                "vegan","gluten free"
+            ]
+        },
+        "country": {
+            "$id": "#/properties/diets",
+            "type": "String",
+            "title": "Country of User",
+            "description": "String of Country Name",
+            "default": "Germany",
+            "examples": [ "Spain"
+           		]
+        } 
+    }      
+           
+}
