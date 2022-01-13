@@ -11,6 +11,9 @@ const app = express();
 //Test, ob Webservice läuft
 app.get('/', (req, res) => {
     res.send("servus");
+
+
+
 });
 //Anfrage an API mit den Parametern Essgewohnheit(month) und Saisonalen Produkten(Ingredients) bsp. recipe?month=februar&diet=vegan
 app.get('/api/recipe', async (req, res) => {
