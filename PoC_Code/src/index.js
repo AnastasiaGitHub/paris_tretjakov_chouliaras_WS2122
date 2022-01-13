@@ -34,9 +34,19 @@ app.get('/api/recipe', async (req, res) => {
     res.send(data);
 });
 
+
 //webservice wird gestartet
-app.listen(3000, () => {
+const port = process.env.PORT || 3001
+
+
+app.listen(port, (err) => {
+    if (err) {
+        console.log('Error: ', err)
+    } else {
+        console.log('Server is up on port: ', port)
+    }
     console.log('servus');
-});
+})
+
 // TODO: Tabelle oder ähnlich für Ingredients (Repo). Für github git ignore node_modules
 
