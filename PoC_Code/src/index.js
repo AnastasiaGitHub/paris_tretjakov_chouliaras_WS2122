@@ -10,6 +10,7 @@ const ingredientRepository = new SeasonalIngredientRepository();
 const userobj = new user();
 const app = express();
 const today = new Date();
+const ourKey = '810e03f604834678b86d3b66e640feac';
 
 
 const monthNames = ["january", "february", "march", "april", "may", "june",
@@ -32,7 +33,7 @@ app.get('/api/recipe', async (req, res) => {
     const ingredients = ingredientRepository.getIngredientsByMonth(todaymonth);
     const recipeIdSet = new Set();
     await Promise.all(ingredients.map(async ingredient => {
-        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?diet=${diet}&includeIngredients=${ingredient}&number=2&apiKey=810e03f604834678b86d3b66e640feac`);
+        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?diet=${diet}&includeIngredients=${ingredient}&number=2&apiKey=ourKey`);
         const data = await response.json();
         const results = data.results;
         results.forEach(result => {
