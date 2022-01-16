@@ -4,13 +4,14 @@ import fetch from "node-fetch";
 //Import der Obst-/Gemüse- sorten aus dem Saisonkalender und User
 import {SeasonalIngredientRepository} from "./seasonalIngredientRepository.js";
 import {user} from "./user.js";
+import {hideKey}from "./hideKey.js";
 
 //Konstruktoren
 const ingredientRepository = new SeasonalIngredientRepository();
 const userobj = new user();
 const app = express();
 const today = new Date();
-const ourKey = '810e03f604834678b86d3b66e640feac';
+const ourKey = hideKey;
 
 
 const monthNames = ["january", "february", "march", "april", "may", "june",
