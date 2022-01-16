@@ -1,7 +1,7 @@
 //Import der benötigten Dependencies
 import express from "express";
 import fetch from "node-fetch";
-//Import der Obst-/Gemüse- sorten aus dem Saisonkalender
+//Import der Obst-/Gemüse- sorten aus dem Saisonkalender und User
 import {SeasonalIngredientRepository} from "./seasonalIngredientRepository.js";
 import {user} from "./user.js";
 
@@ -39,7 +39,8 @@ app.get('/api/recipe', async (req, res) => {
             recipeIdSet.add(result.id);
         });
     }));
-// Set an Rezeptids werden hanhand der Values ID in ein Array gesetzt
+
+// Set an Rezeptids werden anhand der Values ID in ein Array gesetzt
     const recipeIds = Array.from(recipeIdSet.values());
     // Array wird in String umgewandelt und in die Rezeptanfrage anhand der IDs eingefügt
     const response = await fetch(`https://api.spoonacular.com/recipes/informationBulk?ids=${recipeIds.toString()}&apiKey=810e03f604834678b86d3b66e640feac`);
