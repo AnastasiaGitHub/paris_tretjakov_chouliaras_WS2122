@@ -13,7 +13,7 @@ const app = express();
 const today = new Date();
 const ourKey = hideKey.getkey();
 
-console.log(ourKey)
+
 
 const monthNames = ["january", "february", "march", "april", "may", "june",
     "july", "august", "september", "october", "november", "december"
@@ -27,26 +27,26 @@ app.get('/', (req, res) => {
 
 
 
-//Anfrage an API mit den Parametern Essgewohnheit(diet),Saisonalen Produkten(Ingredients), Portion(portion) und Zubereitungsaufwand(zubauf) bsp. recipe?diet=vegan
+//Anfrage an API mit den Parametern Essgewohnheit(diet),Saisonalen Produkten(Ingredients), Portion(serving) und Zubereitungsaufwand(maxReadyTime) bsp. recipe?diet=vegan&maxReadyTime=45&serving=3
 app.get('/api/recipe', async (req, res) => {
     const diet = req.query.diet;
-    const servings = req.query.servings; //EINFÜGEN
-    const duration = req.query.duration; //EINFÜGEN
+    const servings = req.query.serving; //EINFÜGEN
+    const duration = req.query.maxReadyTime; //EINFÜGEN
     const ingredients = ingredientRepository.getIngredientsByMonth(todaymonth);
     const recipeIdSet = new Set();
     await Promise.all(ingredients.map(async ingredient => {
-        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?servings=${servings}&maxReadyTime=${duration}diet=${diet}&includeIngredients=${ingredients}&number=2&apiKey=${ourKey}`);
+        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?diet=${diet}&servings=${servings}&maxReadyTime=${duration}&includeIngredients=${ingredient}&number=2&apiKey=${ourKey}`);
         const data = await response.json();
         const results = data.results;
         results.forEach(result => {
             recipeIdSet.add(result.id);
+
         });
     }));
-
 // Set an Rezeptids werden anhand der Values ID in ein Array gesetzt
     const recipeIds = Array.from(recipeIdSet.values());
     // Array wird in String umgewandelt und in die Rezeptanfrage anhand der IDs eingefügt
-    const response = await fetch(`https://api.spoonacular.com/recipes/informationBulk?ids=${recipeIds.toString()}&apiKey=810e03f604834678b86d3b66e640feac`);
+    const response = await fetch(`https://api.spoonacular.com/recipes/informationBulk?ids=${recipeIds.toString()}&apiKey=${ourKey}`);
     const data = await response.json();
     res.send(data);
 });
