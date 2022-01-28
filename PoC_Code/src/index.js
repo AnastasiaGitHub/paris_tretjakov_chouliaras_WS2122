@@ -27,12 +27,13 @@ app.get('/', (req, res) => {
 
 
 
-//Anfrage an API mit den Parametern Essgewohnheit(diet),Saisonalen Produkten(Ingredients), Portion(serving) und Zubereitungsaufwand(maxReadyTime) bsp. recipe?diet=vegan&maxReadyTime=45&serving=3
+//Anfrage an API mit den Parametern Essgewohnheit(diet),Saisonalen Produkten(Ingredients), Portion(serving) und Zubereitungsaufwand(maxReadyTime) bsp. recipe?diet=vegan&maxReadyTime=45&serving=3&monat=May
 app.get('/api/recipe', async (req, res) => {
     const diet = req.query.diet;
     const servings = req.query.serving; //EINFÜGEN
     const duration = req.query.maxReadyTime; //EINFÜGEN
-    const ingredients = ingredientRepository.getIngredientsByMonth(todaymonth);
+    const month = req.query.monat;
+    const ingredients = ingredientRepository.getIngredientsByMonth(month);
     const recipeIdSet = new Set();
     await Promise.all(ingredients.map(async ingredient => {
         const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?diet=${diet}&servings=${servings}&maxReadyTime=${duration}&includeIngredients=${ingredient}&number=2&apiKey=${ourKey}`);
