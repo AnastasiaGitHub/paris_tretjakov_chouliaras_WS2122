@@ -34,7 +34,7 @@ app.get('/api/recipe', async (req, res) => {
     const ingredients = ingredientRepository.getIngredientsByMonth(todaymonth);
     const recipeIdSet = new Set();
     await Promise.all(ingredients.map(async ingredient => {
-        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?servings=${servings}&maxReadyTime=${duration}diet=${diet}&includeIngredients=${ingredient}&number=2&apiKey=ourKey`);
+        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?servings=${servings}&maxReadyTime=${duration}diet=${diet}&includeIngredients=${ingredients.toString()}&number=2&apiKey=ourKey`);
         const data = await response.json();
         const results = data.results;
         results.forEach(result => {
