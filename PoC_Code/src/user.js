@@ -2,7 +2,7 @@ export class user{
     //Beispiel User. Könnte mit MongoDB ertellt werden
     a = {           vorname:"Max",
                     nachname:"Muster",
-                    essgewx:"Vegan",
+                    essgew:"Vegan",
                     land:"Deutschland"
     };
     getuser(id){

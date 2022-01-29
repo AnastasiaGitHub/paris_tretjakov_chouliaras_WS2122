@@ -27,15 +27,15 @@ app.get('/', (req, res) => {
 
 
 
-//Anfrage an API mit den Parametern Essgewohnheit(diet),Saisonalen Produkten(Ingredients), Portion(serving) und Zubereitungsaufwand(maxReadyTime) bsp. recipe?diet=vegan&maxReadyTime=45&serving=3&monat=May
+//Anfrage an API mit den Parametern Essgewohnheit(diet),Saisonalen Produkten(Ingredients), Portion(serving) und Zubereitungsaufwand(maxReadyTime) bsp. recipe?diet=vegan&maxReadyTime=45
 app.get('/api/recipe', async (req, res) => {
     const diet = req.query.diet;
-    const servings = req.query.serving; //EINFÜGEN
-    const duration = req.query.maxReadyTime; //EINFÜGEN
+    //const servings = req.query.serving; //EINFÜGEN &servings=${servings}  Nicht in API vorhanden.
+    const duration = req.query.maxReadyTime;
     const ingredients = ingredientRepository.getIngredientsByMonth(todaymonth);
     const recipeIdSet = new Set();
-    await Promise.all(ingredients.map(async ingredient => {
-        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?diet=${diet}&servings=${servings}&maxReadyTime=${duration}&includeIngredients=${ingredient}&number=2&apiKey=${ourKey}`);
+    await Promise.all(ingredients.map(async ingredients => {
+        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?diet=${diet}&maxReadyTime=${duration}&includeIngredients=${ingredients}&number=2&apiKey=${ourKey}`);
         const data = await response.json();
         const results = data.results;
         results.forEach(result => {
